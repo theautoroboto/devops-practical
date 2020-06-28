@@ -10,7 +10,7 @@ This one really stumped me.  I started a solution, but just could not get it to 
 
 # Deploy mongodb
 /application/mongo.yml <br>
-Given additional time, I would need to learn hot to make the application authenticate to the mongodb.  Solution was started in /devops/mongo_user.yml
+Given additional time, I would need to learn how to make the application authenticate to the mongodb.  Solution was started in /devops/mongo_user.yml
 
 # kubernetes steps
 Source in /application
@@ -40,7 +40,7 @@ k --kubeconfig="/mnt/d/git/k8s-1-18-3-do-0-sfo2-1593106324392-kubeconfig.yaml" a
 ```
 
 # Packer/Ansible Build
-Source in /packer
+Source in /packer<br>
 ![OUTPUT](packer/output.txt)
 
 # completed
