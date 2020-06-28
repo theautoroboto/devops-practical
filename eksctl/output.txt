@@ -1,0 +1,33 @@
+eksctl create cluster -f cluster-config.yml
+[ℹ]  eksctl version 0.22.0
+[ℹ]  using region us-east-2
+[ℹ]  setting availability zones to [us-east-2c us-east-2b us-east-2a]
+[ℹ]  subnets for us-east-2c - public:172.20.0.0/19 private:172.20.96.0/19
+[ℹ]  subnets for us-east-2b - public:172.20.32.0/19 private:172.20.128.0/19
+[ℹ]  subnets for us-east-2a - public:172.20.64.0/19 private:172.20.160.0/19
+[ℹ]  nodegroup "ng-1" will use "ami-0ea4cbfed994f6b3c" [AmazonLinux2/1.16]
+[ℹ]  using SSH public key "/home/bsmith/.ssh/id_rsa.pub" as "eksctl-swimlane-nano-nodegroup-ng-1-8b:77:2c:84:9b:82:4d:d0:08:b9:ed:ca:ba:83:12:0f"
+[ℹ]  using Kubernetes version 1.16
+[ℹ]  creating EKS cluster "swimlane-nano" in "us-east-2" region with un-managed nodes
+[ℹ]  1 nodegroup (ng-1) was included (based on the include/exclude rules)
+[ℹ]  will create a CloudFormation stack for cluster itself and 1 nodegroup stack(s)
+[ℹ]  will create a CloudFormation stack for cluster itself and 0 managed nodegroup stack(s)
+[ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=us-east-2 --cluster=swimlane-nano'
+[ℹ]  CloudWatch logging will not be enabled for cluster "swimlane-nano" in "us-east-2"
+[ℹ]  you can enable it with 'eksctl utils update-cluster-logging --region=us-east-2 --cluster=swimlane-nano'
+[ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster "swimlane-nano" in "us-east-2"
+[ℹ]  2 sequential tasks: { create cluster control plane "swimlane-nano", 2 sequential sub-tasks: { no tasks, create nodegroup "ng-1" } }
+[ℹ]  building cluster stack "eksctl-swimlane-nano-cluster"
+[ℹ]  deploying stack "eksctl-swimlane-nano-cluster"
+[ℹ]  building nodegroup stack "eksctl-swimlane-nano-nodegroup-ng-1"
+[ℹ]  --nodes-min=2 was set automatically for nodegroup ng-1
+[ℹ]  --nodes-max=2 was set automatically for nodegroup ng-1
+[ℹ]  deploying stack "eksctl-swimlane-nano-nodegroup-ng-1"
+[ℹ]  waiting for the control plane availability...
+[✔]  saved kubeconfig as "/home/bsmith/.kube/config"
+[ℹ]  no tasks
+[✔]  all EKS cluster resources for "swimlane-nano" have been created
+[ℹ]  adding identity "arn:aws:iam::541445199019:role/eksctl-swimlane-nano-nodegroup-ng-NodeInstanceRole-1QE7LP0S5AZM7" to auth ConfigMap
+[ℹ]  nodegroup "ng-1" has 0 node(s)
+[ℹ]  waiting for at least 2 node(s) to become ready in "ng-1"
+Error: timed out (after 25m0s) waiting for at least 2 nodes to join the cluster and become ready in "ng-1"

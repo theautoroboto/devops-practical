@@ -1,0 +1,9 @@
+# This was used in my attempt to have the application accessibkle on port 3000.  I failed...
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  3000: swimlane/swimlane-service:3000

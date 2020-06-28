@@ -1,0 +1,17 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: swimlane-nano
+  region: us-east-2
+
+vpc:
+  cidr: "172.20.0.0/16"
+
+nodeGroups:
+  - name: ng-1
+    ami: ami-0ea4cbfed994f6b3c
+    ssh:
+      allow: true
+    instanceType: t2.nano
+    desiredCapacity: 2

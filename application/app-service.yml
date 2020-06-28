@@ -1,0 +1,10 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: swimlane-service
+spec:
+  selector:
+    app: swimlane
+  ports:
+    - port: 3000 # Default port for image

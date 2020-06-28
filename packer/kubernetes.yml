@@ -1,0 +1,115 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Creating a repository file for Kubernetes
+    file:
+     path: /etc/yum.repos.d/kubernetes.repo
+     state: touch
+
+  - name: Disabling Swap on all nodes
+    shell: swapoff -a
+
+  - name: Commenting Swap entries in /etc/fstab
+    replace:
+     path: /etc/fstab
+     regexp: '(^/.*swap*)'
+     replace: '# \1'
+
+  - name: Adding repository details in Kubernetes repo file.
+    blockinfile:
+     path: /etc/yum.repos.d/kubernetes.repo
+     block: |
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+  - name: Install kubeadm #should be updated to match version compatible with providor
+    yum:
+      name: kubeadm
+      state: latest
+  - name: Install kubectl
+    yum:
+      name: kubectl
+      state: latest
+  - name: Install kubelet #should be updated to match version compatible with providor
+    yum:
+      name: kubelet
+      state: latest
+  - name: Installing Docker and firewalld
+    shell: |
+     yum install firewalld -y
+     yum install -y yum-utils device-mapper-persistent-data lvm2
+     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+     yum install docker-ce -y
+  
+  - name: Starting and Enabling docker
+    service:
+     name: "docker"
+     state: started
+     enabled: yes
+
+  - name: Disabling Chrony
+    service:
+     name: "chronyd"
+     state: stopped
+     enabled: no
+     
+  - name: Install NTP
+    yum:
+      name: ntp
+      state: latest
+
+  - name: Install ntpdate
+    yum:
+      name: ntpdate
+      state: latest
+
+  - name: Install ntpdate
+    yum:
+      name: ntpdate
+      state: latest
+
+  - name: Adding repository details for NTP
+    blockinfile:
+     path: /etc/ntp.conf
+     block: |
+        
+
+  - name: Starting and Enabling NTP
+    service:
+     name: "ntpd"
+     state: started
+     enabled: yes
+
+          
+  - name: Starting and Enabling firewalld
+    service:
+     name: "firewalld"
+     state: started
+     enabled: yes
+
+  - name: Allow 6443 in Firewalld for kubernetes
+    firewalld:
+     port: "6443/tcp"
+     state: enabled
+     permanent: yes
+     immediate: yes
+  - name: Allow 10250 in Firewalld for kubernetes
+    firewalld:
+     port: "10250/tcp"
+     state: enabled
+     permanent: yes
+     immediate: yes
+
+  - name: Config NTP
+    shell: ntpdate -u -s 0.centos.pool.ntp.org 1.centos.pool.ntp.org 2.centos.pool.ntp.org
+
+  - name: Enabling Bridge Firewall Rule
+    shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"

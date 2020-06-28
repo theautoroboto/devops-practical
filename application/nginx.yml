@@ -1,0 +1,31 @@
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: swimlane
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - swimlane.theautoroboto.xyz
+    - eksswimlane.theautoroboto.xyz #I had my TTL too high on swimlane.theautoroboto.xyz and couldn't wait to test
+    secretName: tls-secret
+  rules:
+  - host: swimlane.theautoroboto.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: swimlane-service
+            servicePort: 3000
+  - host: eksswimlane.theautoroboto.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: swimlane-service
+            servicePort: 3000

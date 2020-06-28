@@ -1,0 +1,60 @@
+#I started this to add authentication to the db.  However, this would require application changes as well.  This was not used in the delivered product
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongobongo
+type: Opaque
+data:
+  MONGO_ROOT_USERNAME: YWRtaW4=
+  MONGO_ROOT_PASSWORD: UEE1NXczcmQ=
+---  
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-mongodb
+spec:
+  serviceName: database
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+        selector: mongodb-standalone
+    spec:
+      containers:
+      - name: mongodb-standalone
+        image: mongo:4.0.8
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME_FILE
+            value: /etc/mongobongo/admin/MONGO_ROOT_USERNAME
+          - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+            value: /etc/mongobongo/admin/MONGO_ROOT_PASSWORD
+        volumeMounts:
+        - name: mongobongo
+          mountPath: /etc/mongobongo
+          readOnly: true
+      volumes:
+      - name: mongobongo
+        secret:
+          secretName: mongobongo
+          items:
+          - key: MONGO_ROOT_USERNAME
+            path: admin/MONGO_ROOT_USERNAME
+            mode: 0444
+          - key: MONGO_ROOT_PASSWORD
+            path: admin/MONGO_ROOT_PASSWORD
+            mode: 0444
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  labels:
+    app: database
+spec:
+  clusterIP: None
+  selector:
+    app: database

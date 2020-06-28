@@ -1,0 +1,23 @@
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: swimlane
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - digoceanswimlane.theautoroboto.xyz
+    secretName: tls-secret
+  rules:
+  - host: digoceanswimlane.theautoroboto.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: swimlane-service
+            servicePort: 3000

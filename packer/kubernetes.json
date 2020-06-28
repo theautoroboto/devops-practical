@@ -1,0 +1,28 @@
+{
+    "variables":{
+        "aws_access_key":"{{env `AWS_ACCESS_KEY`}}",
+        "aws_secret_key":"{{env `AWS_SECRET_KEY`}}"
+    },
+    "builders": [{
+        "type":"amazon-ebs",
+        "instance_type":"t2.micro",
+        "ssh_username":"centos",
+        "access_key":"{{user `aws_access_key`}}",
+        "secret_key":"{{user `aws_secret_key`}}",
+        "ami_name":"swimlane",
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type":"hvm",
+                "root-device-type":"ebs",
+                "name":"CentOS Linux 7 x86_64 HVM EBS*"
+            },
+            "owners":["679593333241"],
+            "most_recent":true
+        }
+    }],
+    "provisioners": [
+        {
+        "type":"ansible",
+        "playbook_file": "kubernetes.yml"
+    }]
+}

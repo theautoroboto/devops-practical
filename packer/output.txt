@@ -1,0 +1,540 @@
+amazon-ebs output will be in this color.
+
+==> amazon-ebs: Prevalidating AMI Name: swimlane 1593302145
+    amazon-ebs: Found Image ID: ami-01e36b7901e884a10
+==> amazon-ebs: Creating temporary keypair: packer_5ef7dc81-716e-2f24-dee2-633b06813504
+==> amazon-ebs: Creating temporary security group for this instance: packer_5ef7dc82-ecf6-6be0-1ecb-01f07169fd69
+==> amazon-ebs: Authorizing access to port 22 from 0.0.0.0/0 in the temporary security group...
+==> amazon-ebs: Launching a source AWS instance...
+==> amazon-ebs: Adding tags to source instance
+    amazon-ebs: Adding tag: "Name": "Packer Builder"
+    amazon-ebs: Instance ID: i-0ce9c53ef819b32b7
+==> amazon-ebs: Waiting for instance (i-0ce9c53ef819b32b7) to become ready...
+==> amazon-ebs: Using ssh communicator to connect: 3.136.84.41
+==> amazon-ebs: Waiting for SSH to become available...
+==> amazon-ebs: Connected to SSH!
+==> amazon-ebs: Provisioning with Ansible...
+==> amazon-ebs: Executing Ansible: ansible-playbook --extra-vars packer_build_name=amazon-ebs packer_builder_type=amazon-ebs -o IdentitiesOnly=yes -i /tmp/packer-provisioner-ansible687725591 /mnt/d/git/swimlane/kubernetes/packer/kubernetes.yml -e ansible_ssh_private_key_file=/tmp/ansible-key584076696
+    amazon-ebs:
+    amazon-ebs: PLAY [all] *********************************************************************
+    amazon-ebs:
+    amazon-ebs: TASK [Gathering Facts] *********************************************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Set OS family dependent variables] ****************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Set OS dependent variables] ***********************
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install auditd package | package-08] **************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : configure auditd | package-08] ********************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : create limits.d-directory if it does not exist | sysctl-31a, sysctl-31b] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : create additional limits config file -> 10.hardcore.conf | sysctl-31a, sysctl-31b] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : set 10.hardcore.conf perms to 0400 and root ownership] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove 10.hardcore.conf config file] **************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : create login.defs | os-05, os-05b] ****************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : find files with write-permissions for group] ******
+    amazon-ebs: ok: [default] => (item=/usr/local/sbin)
+    amazon-ebs: ok: [default] => (item=/usr/local/bin)
+    amazon-ebs: ok: [default] => (item=/usr/sbin)
+    amazon-ebs: ok: [default] => (item=/usr/bin)
+    amazon-ebs: ok: [default] => (item=/sbin)
+    amazon-ebs: ok: [default] => (item=/bin)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : minimize access on found files] *******************
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : change shadow ownership to root and mode to 0600 | os-02] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : change passwd ownership to root and mode to 0644 | os-03] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : change su-binary to only be accessible to user and group root] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : update pam on Debian systems] *********************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove pam ccreds to disable password caching] ****
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove pam_cracklib, because it does not play nice with passwdqc] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install the package for strong password checking] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : configure passwdqc] *******************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove passwdqc] **********************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install tally2] ***********************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : configure tally2] *********************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : delete tally2 when retries is 0] ******************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove pam_cracklib, because it does not play nice with passwdqc] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install the package for strong password checking] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove passwdqc] **********************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : configure passwdqc and tally via central system-auth confic] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Gather package facts] *****************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : NSA 2.3.3.5 Upgrade Password Hashing Algorithm to SHA-512] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install modprobe to disable filesystems | os-10] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : check if efi is installed] ************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove vfat from fs-list if efi is used] **********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : disable unused filesystems | os-10] ***************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : add pinerolo_profile.sh to profile.d] *************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove pinerolo_profile.sh from profile.d] ********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : create securetty] *********************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove suid/sgid bit from binaries in blacklist | os-06] ***
+    amazon-ebs: ok: [default] => (item=/usr/bin/rcp)
+    amazon-ebs: ok: [default] => (item=/usr/bin/rlogin)
+    amazon-ebs: ok: [default] => (item=/usr/bin/rsh)
+    amazon-ebs: changed: [default] => (item=/usr/libexec/openssh/ssh-keysign)
+    amazon-ebs: ok: [default] => (item=/usr/lib/openssh/ssh-keysign)
+    amazon-ebs: changed: [default] => (item=/sbin/netreport)
+    amazon-ebs: changed: [default] => (item=/usr/sbin/usernetctl)
+    amazon-ebs: ok: [default] => (item=/usr/sbin/userisdnctl)
+    amazon-ebs: ok: [default] => (item=/usr/sbin/pppd)
+    amazon-ebs: ok: [default] => (item=/usr/bin/lockfile)
+    amazon-ebs: ok: [default] => (item=/usr/bin/mail-lock)
+    amazon-ebs: ok: [default] => (item=/usr/bin/mail-unlock)
+    amazon-ebs: ok: [default] => (item=/usr/bin/mail-touchlock)
+    amazon-ebs: ok: [default] => (item=/usr/bin/dotlockfile)
+    amazon-ebs: ok: [default] => (item=/usr/bin/arping)
+    amazon-ebs: ok: [default] => (item=/usr/sbin/uuidd)
+    amazon-ebs: ok: [default] => (item=/usr/bin/mtr)
+    amazon-ebs: ok: [default] => (item=/usr/lib/evolution/camel-lock-helper-1.2)
+    amazon-ebs: ok: [default] => (item=/usr/lib/pt_chown)
+    amazon-ebs: ok: [default] => (item=/usr/lib/eject/dmcrypt-get-device)
+    amazon-ebs: ok: [default] => (item=/usr/lib/mc/cons.saver)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : find binaries with suid/sgid set | os-06] *********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : gather files from which to remove suids/sgids and remove system white-listed files | os-06] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove suid/sgid bit from all binaries except in system and user whitelist | os-06] ***
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : protect sysctl.conf] ******************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : set Daemon umask, do config for rhel-family | NSA 2.2.4.1] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : install initramfs-tools] **************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : rebuild initramfs with starting pack of modules, if module loading at runtime is disabled] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : create a combined sysctl-dict if overwrites are defined] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Change various sysctl-settings, look at the sysctl-vars file for documentation] ***
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.ip_forward', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.all.forwarding', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.all.accept_ra', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.accept_ra', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.rp_filter', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.rp_filter', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.icmp_echo_ignore_broadcasts', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.icmp_ignore_bogus_error_responses', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.icmp_ratelimit', 'value': 100})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.icmp_ratemask', 'value': 88089})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.all.disable_ipv6', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.tcp_timestamps', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.arp_ignore', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.arp_announce', 'value': 2})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.tcp_rfc1337', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.shared_media', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.shared_media', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.accept_source_route', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.accept_source_route', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.accept_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.accept_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.secure_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.secure_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.accept_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.all.accept_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.send_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.send_redirects', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.all.log_martians', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv4.conf.default.log_martians', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.router_solicitations', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.accept_ra_rtr_pref', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.accept_ra_pinfo', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.accept_ra_defrtr', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.autoconf', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.dad_transmits', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'net.ipv6.conf.default.max_addresses', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.sysrq', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'fs.suid_dumpable', 'value': 0})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.randomize_va_space', 'value': 2})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.core_uses_pid', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.yama.ptrace_scope', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'vm.mmap_min_addr', 'value': 65536})
+    amazon-ebs: changed: [default] => (item={'key': 'fs.protected_hardlinks', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'fs.protected_symlinks', 'value': 1})
+    amazon-ebs: changed: [default] => (item={'key': 'vm.mmap_rnd_bits', 'value': 32})
+    amazon-ebs: changed: [default] => (item={'key': 'vm.mmap_rnd_compat_bits', 'value': 16})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.kptr_restrict', 'value': 2})
+    amazon-ebs: changed: [default] => (item={'key': 'kernel.kexec_load_disabled', 'value': 1})
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Change various sysctl-settings on rhel6-hosts or older, look at the sysctl-vars file for documentation] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Apply ufw defaults] *******************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : get UID_MIN from login.defs] **********************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : calculate UID_MAX from UID_MIN by substracting 1] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : set UID_MAX on Debian-systems if no login.defs exist] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : set UID_MAX on other systems if no login.defs exist] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : get all system accounts] **************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove always ignored system accounts from list] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : change system accounts not on the user provided ignore-list] ***
+    amazon-ebs: ok: [default] => (item=bin)
+    amazon-ebs: ok: [default] => (item=daemon)
+    amazon-ebs: ok: [default] => (item=adm)
+    amazon-ebs: ok: [default] => (item=lp)
+    amazon-ebs: ok: [default] => (item=mail)
+    amazon-ebs: ok: [default] => (item=operator)
+    amazon-ebs: ok: [default] => (item=games)
+    amazon-ebs: ok: [default] => (item=ftp)
+    amazon-ebs: ok: [default] => (item=nobody)
+    amazon-ebs: changed: [default] => (item=systemd-network)
+    amazon-ebs: changed: [default] => (item=dbus)
+    amazon-ebs: changed: [default] => (item=polkitd)
+    amazon-ebs: changed: [default] => (item=rpc)
+    amazon-ebs: changed: [default] => (item=rpcuser)
+    amazon-ebs: changed: [default] => (item=sshd)
+    amazon-ebs: changed: [default] => (item=postfix)
+    amazon-ebs: changed: [default] => (item=chrony)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : Get user accounts | os-09] ************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : delete rhosts-files from system | os-09] **********
+    amazon-ebs: ok: [default] => (item=root)
+    amazon-ebs: ok: [default] => (item=bin)
+    amazon-ebs: ok: [default] => (item=daemon)
+    amazon-ebs: ok: [default] => (item=adm)
+    amazon-ebs: ok: [default] => (item=lp)
+    amazon-ebs: ok: [default] => (item=sync)
+    amazon-ebs: ok: [default] => (item=shutdown)
+    amazon-ebs: ok: [default] => (item=halt)
+    amazon-ebs: ok: [default] => (item=mail)
+    amazon-ebs: ok: [default] => (item=operator)
+    amazon-ebs: ok: [default] => (item=games)
+    amazon-ebs: ok: [default] => (item=ftp)
+    amazon-ebs: ok: [default] => (item=nobody)
+    amazon-ebs: ok: [default] => (item=systemd-network)
+    amazon-ebs: ok: [default] => (item=dbus)
+    amazon-ebs: ok: [default] => (item=polkitd)
+    amazon-ebs: ok: [default] => (item=rpc)
+    amazon-ebs: ok: [default] => (item=rpcuser)
+    amazon-ebs: ok: [default] => (item=nfsnobody)
+    amazon-ebs: ok: [default] => (item=sshd)
+    amazon-ebs: ok: [default] => (item=postfix)
+    amazon-ebs: ok: [default] => (item=chrony)
+    amazon-ebs: ok: [default] => (item=centos)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : delete hosts.equiv from system | os-01] ***********
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : delete .netrc-files from system | os-09] **********
+    amazon-ebs: ok: [default] => (item=root)
+    amazon-ebs: ok: [default] => (item=bin)
+    amazon-ebs: ok: [default] => (item=daemon)
+    amazon-ebs: ok: [default] => (item=adm)
+    amazon-ebs: ok: [default] => (item=lp)
+    amazon-ebs: ok: [default] => (item=sync)
+    amazon-ebs: ok: [default] => (item=shutdown)
+    amazon-ebs: ok: [default] => (item=halt)
+    amazon-ebs: ok: [default] => (item=mail)
+    amazon-ebs: ok: [default] => (item=operator)
+    amazon-ebs: ok: [default] => (item=games)
+    amazon-ebs: ok: [default] => (item=ftp)
+    amazon-ebs: ok: [default] => (item=nobody)
+    amazon-ebs: ok: [default] => (item=systemd-network)
+    amazon-ebs: ok: [default] => (item=dbus)
+    amazon-ebs: ok: [default] => (item=polkitd)
+    amazon-ebs: ok: [default] => (item=rpc)
+    amazon-ebs: ok: [default] => (item=rpcuser)
+    amazon-ebs: ok: [default] => (item=nfsnobody)
+    amazon-ebs: ok: [default] => (item=sshd)
+    amazon-ebs: ok: [default] => (item=postfix)
+    amazon-ebs: ok: [default] => (item=chrony)
+    amazon-ebs: ok: [default] => (item=centos)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove unused repositories] ***********************
+    amazon-ebs: changed: [default] => (item=CentOS-Debuginfo)
+    amazon-ebs: changed: [default] => (item=CentOS-Media)
+    amazon-ebs: changed: [default] => (item=CentOS-Vault)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : get yum-repository-files] *************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : activate gpg-check for config files] **************
+    amazon-ebs: ok: [default] => (item=/etc/yum.conf)
+    amazon-ebs: ok: [default] => (item=/etc/dnf/dnf.conf)
+    amazon-ebs: ok: [default] => (item=/etc/yum.repos.d/CentOS-Base.repo)
+    amazon-ebs: ok: [default] => (item=/etc/yum.repos.d/CentOS-CR.repo)
+    amazon-ebs: ok: [default] => (item=/etc/yum.repos.d/CentOS-Sources.repo)
+    amazon-ebs: ok: [default] => (item=/etc/yum.repos.d/CentOS-fasttrack.repo)
+    amazon-ebs: ok: [default] => (item=/etc/yum/pluginconf.d/rhnplugin.conf)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove deprecated or insecure packages | package-01 - package-09] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : remove deprecated or insecure packages | package-01 - package-09] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.os-hardening : configure selinux | selinux-01] *******************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : include_tasks] ***********************************
+    amazon-ebs: included: /home/bsmith/.ansible/roles/dev-sec.ssh-hardening/tasks/hardening.yml for default
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set OS dependent variables] **********************
+    amazon-ebs: ok: [default] => (item=/home/bsmith/.ansible/roles/dev-sec.ssh-hardening/vars/RedHat.yml)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : get openssh-version] *****************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : parse openssh-version] ***************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : include tasks to create crypo-vars] **************
+    amazon-ebs: included: /home/bsmith/.ansible/roles/dev-sec.ssh-hardening/tasks/crypto.yml for default
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set hostkeys according to openssh-version] *******
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set hostkeys according to openssh-version] *******
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set hostkeys according to openssh-version] *******
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set macs according to openssh-version if openssh >= 7.6] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set macs according to openssh-version if openssh >= 6.6] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set macs according to openssh-version] ***********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set macs for Enterprise Linux >= 6.5 (openssh 5.3 with backports)] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set macs according to openssh-version] ***********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set ciphers according to openssh-version if openssh >= 6.6] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set ciphers according to openssh-version] ********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set kex according to openssh-version if openssh >= 8.0] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set kex according to openssh-version if openssh >= 6.6] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : set kex according to openssh-version] ************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : create revoked_keys and set permissions to root/600] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : create sshd_config and set permissions to root/600] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : disable dynamic MOTD] ****************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : create ssh_config and set permissions to root/644] ***
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : check if /etc/ssh/moduli contains weak DH parameters] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : remove all small primes] *************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : include tasks to setup ca keys and principals] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : include selinux specific tasks] ******************
+    amazon-ebs: included: /home/bsmith/.ansible/roles/dev-sec.ssh-hardening/tasks/selinux.yml for default
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : install selinux dependencies when selinux is installed] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : authorize ['22'] ports for selinux] **************
+    amazon-ebs: ok: [default] => (item=22)
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : check if ssh_password module is already installed] ***
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : create selinux custom policy drop folder] ********
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : distributing custom selinux policies] ************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : check and compile policy] ************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : create selinux policy module package] ************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : install selinux policy] **************************
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [dev-sec.ssh-hardening : remove selinux-policy when Pam is used, because Allowing sshd to read the shadow file directly is considered a potential security risk] ***
+    amazon-ebs: skipping: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Creating a repository file for Kubernetes] *******************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Disabling Swap on all nodes] *********************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Commenting Swap entries in /etc/fstab] ***********************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Adding repository details in Kubernetes repo file.] **********************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Install kubeadm] *********************************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Install kubectl] *********************************************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Install kubelet] *********************************************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Installing Docker and firewalld] *****************************************
+    amazon-ebs: [WARNING]: Consider using the yum module rather than running 'yum'.  If you
+    amazon-ebs: changed: [default]
+    amazon-ebs: need to use command because yum is insufficient you can add 'warn: false' to
+    amazon-ebs: this command task or set 'command_warnings=False' in ansible.cfg to get rid of
+    amazon-ebs: this message.
+    amazon-ebs:
+    amazon-ebs: TASK [Starting and Enabling docker] ********************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Disabling Chrony] ********************************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Install NTP] *************************************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Install ntpdate] *********************************************************
+    amazon-ebs: ok: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Starting and Enabling NTPD] **********************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Starting and Enabling firewalld] *****************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Allow 6443 in Firewalld for kubernetes] **********************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Allow 10250 in Firewalld for kubernetes] *********************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Config NTP] **************************************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: TASK [Enabling Bridge Firewall Rule] *******************************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: RUNNING HANDLER [dev-sec.ssh-hardening : restart sshd] *************************
+    amazon-ebs: changed: [default]
+    amazon-ebs:
+    amazon-ebs: PLAY RECAP *********************************************************************
+    amazon-ebs: default                    : ok=78   changed=35   unreachable=0    failed=0    skipped=42   rescued=0    ignored=0
+    amazon-ebs:
+==> amazon-ebs: Stopping the source instance...
+    amazon-ebs: Stopping instance, attempt 1
+==> amazon-ebs: Waiting for the instance to stop...
+==> amazon-ebs: Creating unencrypted AMI swimlane 1593302145 from instance i-0ce9c53ef819b32b7
+    amazon-ebs: AMI: ami-0ea4cbfed994f6b3c
+==> amazon-ebs: Waiting for AMI to become ready...
+==> amazon-ebs: Terminating the source AWS instance...
+==> amazon-ebs: Cleaning up any extra volumes...
+==> amazon-ebs: Destroying volume (vol-0d77e78005059ca0a)...
+==> amazon-ebs: Deleting temporary security group...
+==> amazon-ebs: Deleting temporary keypair...
+Build 'amazon-ebs' finished.
+
+==> Builds finished. The artifacts of successful builds are:
+--> amazon-ebs: AMIs were created:
+us-east-2: ami-0ea4cbfed994f6b3c
